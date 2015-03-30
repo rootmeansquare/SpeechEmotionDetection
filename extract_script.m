@@ -1,7 +1,7 @@
 clear all
 clc
 
-files = dir('/ConvertedAudio/*.wav');
+files = dir('ConvertedAudio/*.wav');
 fv_train = [;];
 i = 1;
 
