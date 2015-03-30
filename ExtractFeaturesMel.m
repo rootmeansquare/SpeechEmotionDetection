@@ -1,4 +1,4 @@
-function [ feature_vec ] = ExtractFeatures( data, freq, isMel )
+function [ feature_vec ] = ExtractFeaturesMel( data, freq )
 %EXTRACTFEATURES extracts 8 features from an audio sample:
 %   feature_vec is 11 elements long:
     % 1: mean pitch, 2: min pitch, 3: max pitch, 4: pitch variance,
@@ -10,7 +10,8 @@ if n == 2
     data = mean(data, 2);
 end
 
-[pitch, frames] = fxrapt(data, freq);
+pitch = data; %mel is already transformed to the relevant pitch, thus pitch extraction is not necessary
+
 meanpitch = nanmean(pitch);
 minpitch = min(pitch);
 maxpitch = max(pitch);
@@ -23,7 +24,7 @@ minpitchderiv = min(pitchderiv);
 maxpitchderiv = max(pitchderiv);
 varpitchderiv = nanvar(pitchderiv);
 medianpitchderiv = nanmedian(pitchderiv);
-
+%{
 talkspurtlengths = [];
 curlen = 1;
 for i=1:length(frames) %ugly for loop that changes i
@@ -41,10 +42,10 @@ for i=1:length(frames) %ugly for loop that changes i
     end
 end
 meanspurtlength = mean(talkspurtlengths);
-
+%}
 feature_vec = [ meanpitch, minpitch, maxpitch, varpitch, medianpitch,...
     meanpitchderiv, minpitchderiv, maxpitchderiv, varpitchderiv,...
-    medianpitchderiv, meanspurtlength ];
+    medianpitchderiv ];
 
 end
 

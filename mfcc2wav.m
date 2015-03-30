@@ -12,9 +12,9 @@ function mfcc2wav( inputfile )
 
 % Check if the audio signal has two channels. If it does, then the signal
 % is converted into mono by taking the mean of the two channels.
-[m, n] = size(data);
+[m, n] = size(d);
 if n == 2
-    data = mean(data, 2);
+    d = mean(d, 2);
 end
 
 % Convert to MFCCs very close to those genrated by feacalc -sr 22050 -nyq 8000 -dith -hpf -opf htk -delta 0 -plp no -dom cep -com yes -frq mel -filt tri -win 32 -step 16 -cep 20

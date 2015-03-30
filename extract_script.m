@@ -9,12 +9,11 @@ i = 1;
 % 6 = surprise
 
 for file = files'
-    file.name
-    mel_filename = ['MelAudio/',file.name,'_m.wav']
+    mel_filename = ['MelAudio/',file.name,'_m.wav'];
     [data, fs] = audioread(file.name);
     [mel_data, mel_fs] = audioread(mel_filename);
     fv_norm = ExtractFeatures(data, fs);
-    fv_mel = ExtractFeatures(mel_data,mel_fs);
+    fv_mel = ExtractFeaturesMel(mel_data,mel_fs);
     label = 0;
     if ~isempty(strfind(file.name,'_an_'))
         label = 1;
