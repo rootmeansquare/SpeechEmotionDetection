@@ -9,7 +9,8 @@ i = 1;
 % 6 = surprise
 
 for file = files'
-    mel_filename = ['MelAudio/',file.name,'_m.wav'];
+    file.name
+    mel_filename = ['MelAudio/',file.name,'_m.wav']
     [data, fs] = audioread(file.name);
     [mel_data, mel_fs] = audioread(mel_filename);
     fv_norm = ExtractFeatures(data, fs);
@@ -29,5 +30,7 @@ for file = files'
         label = 6;
     end
     fv_train(i,:) = [fv_norm, fv_mel, label];
-    i = i+1;
+    i = i+1
 end
+
+csvwrite('training_data.dat',fv_train);

@@ -5,7 +5,11 @@ function [ feature_vec ] = ExtractFeatures( data, freq )
     % 5: median pitch, 6: mean pitch deriv, 7: min pitch deriv,
     % 8: max pitch deriv, 9: pitch deriv variance, 10: median pitch deriv
     % 11: average speech spurt length
-[pitch, frames] = fxrapt(mean(data,2), freq);
+[m, n] = size(data);
+if n == 2
+    data = mean(data, 2);
+end
+[pitch, frames] = fxrapt(data, freq);
 meanpitch = nanmean(pitch);
 minpitch = min(pitch);
 maxpitch = max(pitch);
