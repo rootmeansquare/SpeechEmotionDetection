@@ -1,7 +1,7 @@
 clear all
 clc
 
-files = dir('ConvertedAudio/*.wav');
+files = dir('C:\Users\Nick\Code\SYDE552\ConvertedAudio\ConvertedAudio\*.wav');
 fv_train = [;];
 i = 1;
 
@@ -9,11 +9,9 @@ i = 1;
 % 6 = surprise
 
 for file = files'
-    mel_filename = ['MelAudio/',file.name,'_m.wav'];
     [data, fs] = audioread(file.name);
-    [mel_data, mel_fs] = audioread(mel_filename);
     fv_norm = ExtractFeatures(data, fs);
-    fv_mel = ExtractFeaturesMel(mel_data,mel_fs);
+    fv_mel = ExtractFeaturesMel(data,fs);
     label = 0;
     if ~isempty(strfind(file.name,'_an_'))
         label = 1;
@@ -28,8 +26,8 @@ for file = files'
     elseif ~isempty(strfind(file.name,'_su_'))
         label = 6;
     end
-    fv_train(i,:) = [fv_norm, fv_mel, label];
+    fv_train(i,:) = [fv_norm, fv_mel', label];
     i = i+1
 end
 
-csvwrite('training_data.dat',fv_train);
+csvwrite('training_data_allmel.dat',fv_train);
